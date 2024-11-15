@@ -49,3 +49,97 @@ In a Node.js project, `package.json` and `package-lock.json` are both essential 
    - `package-lock.json` is generated automatically by npm when dependencies are installed or updated, and it’s not typically edited manually.
 
 In summary, `package.json` defines the general dependency ranges for a project, while `package-lock.json` locks down the exact versions installed to ensure consistency across different environments. Both files work together to make dependency management both flexible and reliable.
+
+
+### **Question: What is the purpose of middleware in Express.js, and how does it enhance an application?**
+
+### **Answer:**
+
+Middleware in Express.js are functions that run during the request-response cycle, acting as intermediaries between the client request and the server's response. They help in managing tasks like request handling, data processing, and error management, ensuring the application operates efficiently and securely.
+
+#### **Purposes of Middleware:**
+
+1. **Request Logging:**  
+   Middleware can record details about incoming requests, such as the HTTP method, URL, and timestamp, which is helpful for debugging and monitoring.
+
+2. **Authentication and Authorization:**  
+   Middleware can validate user credentials or permissions, ensuring only authorized users access protected resources.
+
+3. **Request Parsing:**  
+   Middleware processes incoming data (e.g., JSON, form data) to make it easily accessible for route handlers.
+
+4. **Error Handling:**  
+   Middleware can catch and handle errors gracefully, preventing crashes and providing meaningful error messages to clients.
+
+5. **Serving Static Files:**  
+   Middleware can efficiently deliver static assets, like images, stylesheets, or JavaScript files, directly to the client.
+
+6. **Custom Logic:**  
+   Middleware can implement reusable logic, such as input validation, rate limiting, or modifying request/response objects.
+
+---
+
+In essence, middleware is a powerful tool that enhances functionality, modularity, and security in Express.js applications by acting as a bridge for various tasks during the server's request-handling process.
+
+### **Question: What are the different types of HTTP status codes, and what do they signify?**
+
+### **Answer:**
+
+HTTP status codes are standardized responses sent by a server to indicate the result of a client’s request. They are categorized into five classes based on the first digit of the code. Here are the main categories and common examples:
+
+---
+
+#### **1. Informational Responses (100–199)**  
+These indicate that the request was received and understood, and the server is continuing to process it.
+
+- **100 Continue:** The client can proceed with the request.
+
+---
+
+#### **2. Success Responses (200–299)**  
+These signify that the request was successfully received, understood, and processed.
+
+- **200 OK:** The request was successful, and the response contains the requested data.
+- **201 Created:** The request was successful, and a new resource was created as a result.
+- **204 No Content:** The server processed the request successfully but is not returning any content.
+
+---
+
+#### **3. Redirection Responses (300–399)**  
+These indicate that the client needs to take additional action to complete the request.
+
+- **301 Moved Permanently:** The resource has been permanently moved to a new URL.
+- **302 Found:** The resource is temporarily located at a different URL.
+- **304 Not Modified:** The cached version of the resource is still valid; no need to re-download it.
+
+---
+
+#### **4. Client Error Responses (400–499)**  
+These indicate that there was an error in the request, typically caused by the client.
+
+- **400 Bad Request:** The server cannot process the request due to invalid syntax.
+- **401 Unauthorized:** Authentication is required but was not provided or is invalid.
+- **403 Forbidden:** The server understands the request but refuses to authorize it.
+- **404 Not Found:** The requested resource does not exist on the server.
+- **429 Too Many Requests:** The client has sent too many requests in a given time frame (rate-limiting).
+
+---
+
+#### **5. Server Error Responses (500–599)**  
+These indicate that the server encountered an error while processing the request.
+
+- **500 Internal Server Error:** A generic error when the server fails to fulfill the request.
+- **501 Not Implemented:** The server does not recognize the request method or lacks the capability to fulfill it.
+- **503 Service Unavailable:** The server is temporarily unavailable, often due to maintenance or overloading.
+- **504 Gateway Timeout:** The server did not receive a timely response from an upstream server.
+
+---
+
+### **Summary:**
+- **100–199:** Informational (e.g., processing is ongoing).  
+- **200–299:** Success (e.g., request succeeded).  
+- **300–399:** Redirection (e.g., additional steps required).  
+- **400–499:** Client errors (e.g., bad request, unauthorized).  
+- **500–599:** Server errors (e.g., internal error, unavailable).
+
+Understanding status codes helps in debugging and ensuring proper communication between the client and the server.
