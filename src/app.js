@@ -1,20 +1,18 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 
-// app.get('/user/:userId/:password/:Name', (req, res) => {
-//     console.log(req.params);
-//     res.send("user data!");
-// });
-
-
-app.get('/user', (req, res, next) => {
-    console.log("First handler");
-    next(); // Passes control to the next handler
+// A sample route that throws an error
+app.get("/", (req, res) => {
+    throw new Error("Something went wrong!");
 });
 
-app.get('/user', (req, res) => {
-    res.send("Second handler");
+// Global error-handling middleware
+app.use("/",(err, req, res, next) => {
+    console.error(err.stack); // Logs the error details
+    res.status(500).send("Internal Server Error");
 });
+
+// Start the server
 app.listen(3500, () => {
     console.log("Server running on port 3500");
 });
