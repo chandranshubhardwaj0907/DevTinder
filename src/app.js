@@ -1,18 +1,29 @@
 const express = require("express");
+const connectdb = require("./config/database");
 const app = express();
-
-// A sample route that throws an error
-app.get("/", (req, res) => {
-    throw new Error("Something went wrong!");
+const User = require("./models/user");
+app.post("/signup", async (req, res) => {
+  const user = new User({
+    firstName: "Ashmit",
+    lastName: "Thawait",
+    Phone: "7987403728",
+    gender: "male",
+  });
+  try {
+    await user.save();
+    res.send("user added");
+  } catch (err) {
+    res.status(400).send("error");
+  }
 });
 
-// Global error-handling middleware
-app.use("/",(err, req, res, next) => {
-    console.error(err.stack); // Logs the error details
-    res.status(500).send("Internal Server Error");
-});
-
-// Start the server
-app.listen(3500, () => {
-    console.log("Server running on port 3500");
-});
+connectdb()
+  .then(() => {
+    console.log("Connection established");
+    app.listen(3500, () => {
+      console.log("Server is running on port 3500");
+    });
+  })
+  .catch((error) => {
+    console.error("Database connection failed:", error);
+  });
