@@ -43,6 +43,8 @@ app.patch("/user", async (req, res) => {
     res.end("something went wrong");
   }
 });
+
+
 connectdb()
   .then(() => {
     console.log("Connection established");
