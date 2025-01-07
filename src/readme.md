@@ -142,4 +142,62 @@ These indicate that the server encountered an error while processing the request
 - **400–499:** Client errors (e.g., bad request, unauthorized).  
 - **500–599:** Server errors (e.g., internal error, unavailable).
 
-Understanding status codes helps in debugging and ensuring proper communication between the client and the server.
+
+### **What is the difference between JSON and a JavaScript object?**
+
+###  **Answer**
+ JSON (JavaScript Object Notation):
+
+### JSON is a lightweight, text-based format for data exchange between systems.
+It is always a string and follows strict syntax rules (e.g., keys and strings must be enclosed in double quotes).
+Example:
+json
+Copy code
+{"name": "Alice", "age": 25}
+JavaScript Object:
+
+### A JavaScript object is a data structure in JavaScript used to store key-value pairs.
+Keys don’t require quotes (unless they are invalid identifiers), and it can include functions (methods).
+Example:
+javascript
+Copy code
+{name: "Alice", age: 25}
+Key Difference:
+
+### **JSON is used for data transfer between systems, while JavaScript objects are used for programming within JavaScript. JSON must be parsed (JSON.parse) to become a JavaScript object, and JavaScript objects must be stringified (JSON.stringify) to be converted into JSON.**
+
+### **Question**
+What is the difference between PUT and PATCH in REST APIs?
+
+### **Answer**
+
+### **PUT**
+Used to completely replace a resource.
+The request body must contain the full resource, including unchanged fields.
+Repeated calls (idempotent) always produce the same result.
+Example:
+Original Resource:
+json
+Copy code
+{ "name": "Alice", "email": "alice@example.com", "age": 25 }
+Request Body for PUT:
+json
+Copy code
+{ "name": "Alice", "email": "alice_new@example.com", "age": 26 }
+Result:
+The entire resource is replaced.
+
+### **PATCH**
+Used to partially update a resource.
+Only the fields that need to be updated are included in the request body.
+Generally idempotent but may vary based on implementation.
+Example:
+Request Body for PATCH:
+json
+Copy code
+{ "email": "alice_new@example.com" }
+Result:
+Only the email field is updated, leaving other fields unchanged.
+Key Difference:
+
+### **PUT is for complete replacement, while PATCH is for partial updates.**

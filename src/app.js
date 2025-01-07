@@ -37,13 +37,15 @@ app.patch("/user", async (req, res) => {
   const userId = req.body.userId;
   const data = req.body;
   try {
-     await User.findByIdAndUpdate(userId, data,{returnDocument : "before"});
+    await User.findByIdAndUpdate(userId, data, {
+      returnDocument: "before",
+      runValidators: true,
+    });
     res.send("user updated successfully");
   } catch (err) {
     res.end("something went wrong");
   }
 });
-
 
 connectdb()
   .then(() => {
