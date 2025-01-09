@@ -9,12 +9,16 @@ app.use(express.json());
 
 app.post("/signup", async (req, res) => {
   try {
-    console.log("Request Body:", req.body); // Log the incoming request body
+    const { firstName, lastName, email, password } = req.body;
+
+    // Validate input
+    if (!firstName || !email || !password) {
+      return res.status(400).send("First name, email, and password are required");
+    }
+
     validateSignUpData(req);
 
-    const { firstName, lastName, email, password } = req.body;
     const passwordHash = await bcrypt.hash(password, 10);
-    req.body.password = passwordHash;
 
     const user = new User({
       firstName,
@@ -23,10 +27,36 @@ app.post("/signup", async (req, res) => {
       password: passwordHash,
     });
     await user.save();
-    res.send("User added successfully");
+    res.status(201).send("User added successfully");
   } catch (err) {
     console.error("Signup error:", err);
-    res.status(404).send(err.message || "An error occurred while signing up");
+    res.status(400).send(err.message || "An error occurred while signing up");
+  }
+});
+
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Validate input
+    if (!email || !password) {
+      return res.status(400).send("Email and password are required");
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).send("Invalid Credentials");
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).send("Invalid Credentials");
+    }
+
+    res.status(200).send("Login successful!!!");
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).send(err.message || "Something went wrong");
   }
 });
 
