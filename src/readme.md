@@ -201,3 +201,16 @@ Only the email field is updated, leaving other fields unchanged.
 Key Difference:
 
 ### **PUT is for complete replacement, while PATCH is for partial updates.**
+
+
+### **validator**
+
+used validator package for the validation used
+
+*** npm i validator ***
+
+### **Encrypting the password**
+
+used bcrypt package for the password encryption
+
+*** npm i bcrypt ***

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-var validator = require('validator');
+var validator = require("validator");
+
 const userSchema = mongoose.Schema(
   {
     firstName: {
@@ -18,35 +19,41 @@ const userSchema = mongoose.Schema(
       lowercase: true,
       unique: true,
       trim: true,
-      validate(value){
-        if(!validator.isEmail(value)){
-          throw new error("mail address not valid")
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Email address is not valid");
         }
-      }
+      },
     },
     password: {
       type: String,
       required: true,
-      validate(value){
-        if(!validator.isStrongPassword(value)){
-          throw new Error("enter a Strong Password")
+      validate(value) {
+        if (!validator.isStrongPassword(value)) {
+          throw new Error("Enter a strong password");
         }
-      }
+      },
     },
     phone: {
       type: String,
+      validate(value) {
+        if (!/^\d{10}$/.test(value)) {
+          throw new Error("Phone number must be 10 digits");
+        }
+      },
     },
     address: {
       type: String,
     },
-    skills:{
+    skills: {
       type: [String],
     },
     gender: {
       type: String,
       validate(value) {
-        if (!["male", "female", "others"].includes(value)) {
-          throw new Error("Gender data not valid");
+        const validGenders = ["male", "female", "others"];
+        if (!validGenders.includes(value.toLowerCase())) {
+          throw new Error("Gender data is not valid");
         }
       },
     },
@@ -56,7 +63,6 @@ const userSchema = mongoose.Schema(
   }
 );
 
-const userModel = mongoose.model("user", userSchema);
+const userModel = mongoose.model("User", userSchema);
 
 module.exports = userModel;
- 
