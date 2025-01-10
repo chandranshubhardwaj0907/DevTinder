@@ -214,3 +214,9 @@ used validator package for the validation used
 used bcrypt package for the password encryption
 
 *** npm i bcrypt ***
+
+### **cookies**
+
+used cookie-parser for reading the cookie
+
+*** npm i cookie-parser ***

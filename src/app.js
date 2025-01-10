@@ -4,8 +4,11 @@ const bcrypt = require("bcrypt");
 const app = express();
 const User = require("./models/user");
 const { validateSignUpData } = require("./utils/validations");
-
+const cookieparser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 app.use(express.json());
+app.use(cookieparser());
 
 app.post("/signup", async (req, res) => {
   try {
@@ -13,7 +16,9 @@ app.post("/signup", async (req, res) => {
 
     // Validate input
     if (!firstName || !email || !password) {
-      return res.status(400).send("First name, email, and password are required");
+      return res
+        .status(400)
+        .send("First name, email, and password are required");
     }
 
     validateSignUpData(req);
@@ -49,15 +54,35 @@ app.post("/login", async (req, res) => {
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).send("Invalid Credentials");
-    }
+    if (isPasswordValid) {
+      // create a jwt token
+      const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+      // validate the token
 
-    res.status(200).send("Login successful!!!");
+      // add the jwt token into the cookie  and send it back to the user
+
+      res.cookie("token", token);
+      res.send("login sucessfull!!!");
+    } else {
+      throw new Error("Invalid credentials");
+    }
   } catch (err) {
     console.error("Login error:", err);
     res.status(500).send(err.message || "Something went wrong");
   }
+});
+app.get("/profile", async (req, res) => {
+  const cookies = req.cookies;
+
+  const { token } = cookies;
+  const decodedMessage = await jwt.verify(token, process.env.JWT_SECRET);
+
+  const { _id } = decodedMessage;
+  console.log("logged in user " + _id);
+  res.send("Reading Cookies");
+
+  // console.log(cookies);
+  res.end("reading  cookies");
 });
 
 app.get("/feed", async (req, res) => {
