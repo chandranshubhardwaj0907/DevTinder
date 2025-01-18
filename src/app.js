@@ -72,7 +72,7 @@ app.post("/login", async (req, res) => {
     }
 
     // Validate password
-    const isPasswordValid = user.validatepassword;
+    const isPasswordValid = user.validatepassword; 
     if (!isPasswordValid) {
       return res.status(401).send("Invalid credentials");
     }
