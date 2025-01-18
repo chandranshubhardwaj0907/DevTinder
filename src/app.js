@@ -4,8 +4,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
-
 const User = require("./models/user");
+
 const { validateSignUpData } = require("./utils/validations");
 const { userAuth } = require("./middlewares/auth");
 
@@ -22,7 +22,9 @@ app.post("/signup", async (req, res) => {
 
     // Validate required fields
     if (!firstName || !email || !password) {
-      return res.status(400).send("First name, email, and password are required");
+      return res
+        .status(400)
+        .send("First name, email, and password are required");
     }
 
     // Validate user input
@@ -70,16 +72,19 @@ app.post("/login", async (req, res) => {
     }
 
     // Validate password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = user.validatepassword;
     if (!isPasswordValid) {
       return res.status(401).send("Invalid credentials");
     }
 
     // Generate JWT token
-    const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = await user.getJWT;
 
     // Set token in cookies
-    res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === "production" });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+    });
     res.send("Login successful!");
   } catch (err) {
     console.error("Login error:", err);
