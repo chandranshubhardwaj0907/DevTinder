@@ -220,3 +220,7 @@ used bcrypt package for the password encryption
 used cookie-parser for reading the cookie
 
 *** npm i cookie-parser ***
+
+*** express router ***
+
+used to manage apis

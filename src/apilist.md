@@ -13,10 +13,10 @@ patch/profile/password
 connectiionRequestRouter 
 post/request/send/interested/:userid
 post/request/send/ignored/:userid
-
 post/request/review/accepted/:requestid
 post/request/review/rejected/:requestid
 
+userRouter
 get/connection
 get/request/
 get/feed
