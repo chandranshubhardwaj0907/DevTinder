@@ -224,3 +224,16 @@ used cookie-parser for reading the cookie
 *** express router ***
 
 used to manage apis
+
+***  npm install bcrypt jsonwebtoken nodemailer dotenv ***
+
+bcrypt
+Purpose: bcrypt is a library used to hash passwords before storing them in a database, ensuring password security. It uses a salt (random value) to hash the password, which makes it more secure against attacks like rainbow table or brute force attacks.
+
+ jsonwebtoken (JWT)
+Purpose: jsonwebtoken is a library used to generate and verify JSON Web Tokens (JWT), which are commonly used for authentication and authorization.
+
+nodemailer
+Purpose: nodemailer is a module used to send emails from a Node.js application. It supports various email services like Gmail, Yahoo, Outlook, and more.
+
+Purpose: dotenv is used to load environment variables from a .env file into process.env. It’s useful for storing sensitive information like database credentials, API keys, and secrets that shouldn’t be hardcoded in your source code.
