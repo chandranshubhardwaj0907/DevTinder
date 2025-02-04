@@ -1,9 +1,7 @@
 const express = require("express");
 const { userAuth } = require("../middlewares/auth");
 const profileRouter = express.Router();
-
 const { validateEditProfile } = require("../utils/validations");
-
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user"); // Import User model
@@ -88,4 +86,5 @@ profileRouter.post("/reset-password", async (req, res) => {
   await user.save();
   res.json({ message: "Password reset successful. You can now log in." });
 });
+
 module.exports = profileRouter;
